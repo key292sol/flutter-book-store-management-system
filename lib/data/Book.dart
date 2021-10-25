@@ -27,6 +27,19 @@ class Book {
     };
   }
 
+  /* 
+   * To use when a function needs empty values to display
+   */
+  static Map<String, String> getEmptyMap() {
+    return {
+      "id": "",
+      "name": "",
+      "author": "",
+      "price": "",
+      "count": ""
+    };
+  }
+
   static List<String> getColumnNames() {
     return ["ID", "NAME", "AUTHOR", "PRICE", "COUNT"];
   }
