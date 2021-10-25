@@ -16,7 +16,6 @@ class RemoveBookScreen extends StatefulWidget {
   }
 }
 
-// TODO: Remove book by ID
 class _RemoveBookScreenState extends State<RemoveBookScreen> {
 
   Map<String, TextEditingController> _inputControllers = {};

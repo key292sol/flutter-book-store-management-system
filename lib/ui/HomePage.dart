@@ -2,7 +2,6 @@ import 'package:book_store_management/globals.dart';
 import 'package:book_store_management/ui/AddBookScreen.dart';
 import 'package:book_store_management/ui/EditBookScreen.dart';
 import 'package:book_store_management/ui/SellBookScreen.dart';
-import 'package:book_store_management/ui/custom_widgets/IntNumberInputField.dart';
 import 'package:book_store_management/ui/RemoveBookScreen.dart';
 import 'package:book_store_management/ui/SearchBookScreen.dart';
 import 'package:book_store_management/ui/ViewBooksScreen.dart';
@@ -185,12 +184,4 @@ class _HomePageState extends State<HomePage> {
       )
     );
   }
-
-
-  Widget getNumberField() {
-    IntNumberInputField nif = IntNumberInputField();
-    // nif.setLabelText("Label");
-    return nif;
-  }
-
 }
