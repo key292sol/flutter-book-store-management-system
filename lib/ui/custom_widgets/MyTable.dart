@@ -37,14 +37,12 @@ class MyTable {
 			);
 		};
 
-		int i = 0;
 
 		return booksList.map<DataRow>((e) {
 			Map bookValues = e.getAsMap();
-			i++;
 
 			return DataRow(cells: [
-				getDataCell(i.toString()),
+				getDataCell(bookValues["id"]),
 				getDataCell(bookValues["name"]),
 				getDataCell(bookValues["author"]),
 				getDataCell(bookValues["price"]),

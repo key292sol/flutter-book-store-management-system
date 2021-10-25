@@ -1,5 +1,5 @@
 import 'package:book_store_management/data/Book.dart';
-import 'package:book_store_management/ui/MyTable.dart';
+import 'package:book_store_management/ui/custom_widgets/MyTable.dart';
 import 'package:flutter/material.dart';
 
 class AllBooks {
