@@ -36,7 +36,7 @@ class _EditBookScreenState extends State<EditBookScreen> {
     }
 
     int bookId = int.parse(bookIdText) - 1;
-    _curBook = AllBooks.getBookByNum(bookId);
+    _curBook = AllBooks.getBookById(bookId);
 
     if (_curBook == null) {
       ShowDialogs.showToast("The sr. no. does not exist");

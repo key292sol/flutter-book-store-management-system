@@ -6,7 +6,7 @@ class AllBooks {
 	static List<Book> _allBooks = [];
   static int _lastId = 0;
 
-  static Book? getBookByNum(int bookId) {
+  static Book? getBookById(int bookId) {
     if (bookId < getFirstBookId() && bookId >= getLastBookId()) {
       return null;
     }
@@ -63,7 +63,7 @@ class AllBooks {
 		return true;
 	}
 
-  static bool deleteBookByNum(int bookId) {
+  static bool deleteBookById(int bookId) {
     if (bookId >= getFirstBookId() && bookId < getLastBookId()) {
       for(int i = 0; i < _allBooks.length; i++) {
         if (_allBooks[i].id == bookId) {
