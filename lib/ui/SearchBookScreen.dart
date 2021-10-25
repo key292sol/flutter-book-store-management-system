@@ -1,7 +1,7 @@
 import 'package:book_store_management/data/AllBooks.dart';
+import 'package:book_store_management/ui/custom_widgets/IntNumberInputField.dart';
 import 'package:book_store_management/ui/custom_widgets/ShowDialogs.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class SearchBookScreen extends StatefulWidget {
   const SearchBookScreen({ Key? key }) : super(key: key);
@@ -23,6 +23,8 @@ class _SearchBookScreenState extends State<SearchBookScreen> {
 
   late Widget _searchInputUI;
 
+  int _bookId = AllBooks.getFirstBookId();
+
   _SearchBookScreenState() {
     _searchInputUI = getBookIdSearchUI();
 
@@ -41,16 +43,11 @@ class _SearchBookScreenState extends State<SearchBookScreen> {
   }
 
   void searchBookById() {
-    String bookIdText = _inputsControllers["bookId"].text;
+    List<DataRow> rows = AllBooks.getOneBookAsDataRows(_bookId);
 
-    if (bookIdText == "") {
-      ShowDialogs.showToast("Enter a book number");
-      return;
+    if (rows.length == 0) {
+      ShowDialogs.showToast("No books found");
     }
-
-    int bookId = int.parse(bookIdText) - 1;
-
-    List<DataRow> rows = AllBooks.getOneBookAsDataRows(bookId);
 
     _setDataTableRows(rows);
   }
@@ -85,7 +82,35 @@ class _SearchBookScreenState extends State<SearchBookScreen> {
 
     return Column(
       children: [
-        Padding(
+
+
+        Container(
+          child: Row(
+            children: [
+              Padding(
+                padding: insets,
+                child: Text(
+                  "Enter a book ID: "
+                )
+              ),
+              Padding(
+                padding: insets,
+                child: IntNumberInputField(
+                  minValue: AllBooks.getFirstBookId(),
+                  maxValue: AllBooks.getLastBookId(),
+                  value: this._bookId,
+                  onValueChanged: (int newValue) {
+                    this._bookId = newValue;
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+
+
+
+        /* Padding(
           padding: insets,
           child: TextField(
             controller: _inputsControllers["bookId"],
@@ -95,7 +120,7 @@ class _SearchBookScreenState extends State<SearchBookScreen> {
               FilteringTextInputFormatter.digitsOnly
             ],
           ),
-        ),
+        ), */
 
         Padding(
           padding: buttonInsets,

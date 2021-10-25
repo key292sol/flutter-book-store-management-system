@@ -1,8 +1,8 @@
 import 'package:book_store_management/data/AllBooks.dart';
 import 'package:book_store_management/data/Book.dart';
+import 'package:book_store_management/ui/custom_widgets/IntNumberInputField.dart';
 import 'package:book_store_management/ui/custom_widgets/ShowDialogs.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class EditBookScreen extends StatefulWidget {
   const EditBookScreen({ Key? key }) : super(key: key);
@@ -20,6 +20,8 @@ class _EditBookScreenState extends State<EditBookScreen> {
   Map _inputsControllers = {};
   Book? _curBook;
 
+  int _bookId = AllBooks.getFirstBookId();
+
   void updateBookDataUI() {
     _inputsControllers["bookName"].text = _curBook?.name;
     _inputsControllers["bookAuthor"].text = _curBook?.author;
@@ -28,18 +30,10 @@ class _EditBookScreenState extends State<EditBookScreen> {
   }
 
   void showBookData() {
-    String bookIdText = _inputsControllers["bookId"].text;
-
-    if (bookIdText == "") {
-      ShowDialogs.showToast("Enter the sr. no. of a book");
-      return;
-    }
-
-    int bookId = int.parse(bookIdText) - 1;
-    _curBook = AllBooks.getBookById(bookId);
+    _curBook = AllBooks.getBookById(_bookId);
 
     if (_curBook == null) {
-      ShowDialogs.showToast("The sr. no. does not exist");
+      ShowDialogs.showToast("The Book ID does not exist");
       return;
     }
 
@@ -79,15 +73,28 @@ class _EditBookScreenState extends State<EditBookScreen> {
     return Column(
       children: [
 
-        // TODO: Change to IntNumberInputField
-        Padding(
-          padding: insets,
-          child: TextField(
-            controller: _inputsControllers["bookId"],
-            decoration: new InputDecoration(labelText: "Book ID"),
-            keyboardType: TextInputType.number,
-            inputFormatters: [
-              FilteringTextInputFormatter.digitsOnly
+        Padding(padding: buttonInsets),
+
+        Container(
+          child: Row(
+            children: [
+              Padding(
+                padding: insets,
+                child: Text(
+                  "Enter a book ID: "
+                )
+              ),
+              Padding(
+                padding: insets,
+                child: IntNumberInputField(
+                  minValue: AllBooks.getFirstBookId(),
+                  maxValue: AllBooks.getLastBookId(),
+                  value: this._bookId,
+                  onValueChanged: (int newValue) {
+                    this._bookId = newValue;
+                  },
+                ),
+              ),
             ],
           ),
         ),
