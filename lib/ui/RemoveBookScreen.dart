@@ -217,30 +217,17 @@ class _RemoveBookScreenState extends State<RemoveBookScreen> {
             ),
           ),
           
-          Container(
+          Padding(
             padding: insets,
-            child: Row(
-              children: [
-                Padding(
-                  padding: insets,
-                  child: Text(
-                    "Select Book ID",
-                    style: getContentTextStyle(),
-                  ),
-                ),
-
-                Padding(
-                  padding: insets,
-                  child: IntNumberInputField(
-                    minValue: AllBooks.getFirstBookId(),
-                    maxValue: AllBooks.getLastBookId(),
-                    value: this._bookId,
-                    onValueChanged: (int newValue) {
-                      this._bookId = newValue;
-                    },
-                  ),
-                ),
-              ],
+            child: IntNumberInputField(
+              sideLabel: "Enter a book ID: ",
+              sideLabelTextStyle: getContentTextStyle(),
+              minValue: AllBooks.getFirstBookId(),
+              maxValue: AllBooks.getLastBookId(),
+              value: this._bookId,
+              onValueChanged: (int newValue) {
+                this._bookId = newValue;
+              },
             ),
           ),
         ],

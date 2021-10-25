@@ -64,6 +64,16 @@ class _EditBookScreenState extends State<EditBookScreen> {
   }
 
 
+  Widget getSeparator() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+      child: Container(
+        padding: EdgeInsets.all(1),
+        color: Colors.black,
+      ),
+    );
+  }
+
   Widget getBookIdInputUI() {
     EdgeInsets insets = EdgeInsets.symmetric(horizontal: 15, vertical: 1);
     EdgeInsets buttonInsets = EdgeInsets.only(top: 20);
@@ -75,27 +85,17 @@ class _EditBookScreenState extends State<EditBookScreen> {
 
         Padding(padding: buttonInsets),
 
-        Container(
-          child: Row(
-            children: [
-              Padding(
-                padding: insets,
-                child: Text(
-                  "Enter a book ID: "
-                )
-              ),
-              Padding(
-                padding: insets,
-                child: IntNumberInputField(
-                  minValue: AllBooks.getFirstBookId(),
-                  maxValue: AllBooks.getLastBookId(),
-                  value: this._bookId,
-                  onValueChanged: (int newValue) {
-                    this._bookId = newValue;
-                  },
-                ),
-              ),
-            ],
+        Padding(
+          padding: insets,
+          child: IntNumberInputField(
+            sideLabel: "Enter a book ID:",
+            spaceAfterLabel: 15,
+            minValue: AllBooks.getFirstBookId(),
+            maxValue: AllBooks.getLastBookId(),
+            value: this._bookId,
+            onValueChanged: (int newValue) {
+              this._bookId = newValue;
+            },
           ),
         ),
 
@@ -172,6 +172,7 @@ class _EditBookScreenState extends State<EditBookScreen> {
       body: ListView(
         children: [
           getBookIdInputUI(),
+          getSeparator(),
           getBookDataUI(),
         ],
       ),

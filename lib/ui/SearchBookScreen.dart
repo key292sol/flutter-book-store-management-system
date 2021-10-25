@@ -74,6 +74,16 @@ class _SearchBookScreenState extends State<SearchBookScreen> {
     });
   }
 
+  Widget getSeparator() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+      child: Container(
+        padding: EdgeInsets.all(1),
+        color: Colors.black,
+      ),
+    );
+  }
+
   Widget getBookIdSearchUI() {
     EdgeInsets insets = EdgeInsets.symmetric(horizontal: 15, vertical: 1);
     EdgeInsets buttonInsets = EdgeInsets.only(top: 20);
@@ -82,45 +92,18 @@ class _SearchBookScreenState extends State<SearchBookScreen> {
 
     return Column(
       children: [
-
-
-        Container(
-          child: Row(
-            children: [
-              Padding(
-                padding: insets,
-                child: Text(
-                  "Enter a book ID: "
-                )
-              ),
-              Padding(
-                padding: insets,
-                child: IntNumberInputField(
-                  minValue: AllBooks.getFirstBookId(),
-                  maxValue: AllBooks.getLastBookId(),
-                  value: this._bookId,
-                  onValueChanged: (int newValue) {
-                    this._bookId = newValue;
-                  },
-                ),
-              ),
-            ],
+        Padding(
+          padding: insets,
+          child: IntNumberInputField(
+            sideLabel: "Enter a book ID: ",
+            minValue: AllBooks.getFirstBookId(),
+            maxValue: AllBooks.getLastBookId(),
+            value: this._bookId,
+            onValueChanged: (int newValue) {
+              this._bookId = newValue;
+            },
           ),
         ),
-
-
-
-        /* Padding(
-          padding: insets,
-          child: TextField(
-            controller: _inputsControllers["bookId"],
-            decoration: new InputDecoration(labelText: "Enter book ID"),
-            keyboardType: TextInputType.number,
-            inputFormatters: [
-              FilteringTextInputFormatter.digitsOnly
-            ],
-          ),
-        ), */
 
         Padding(
           padding: buttonInsets,
@@ -205,7 +188,8 @@ class _SearchBookScreenState extends State<SearchBookScreen> {
             child: _searchInputUI,
           ),
 
-          Padding(padding: EdgeInsets.only(top: 30)),
+          // Padding(padding: EdgeInsets.only(top: 30)),
+          getSeparator(),
 
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,

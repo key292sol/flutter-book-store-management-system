@@ -101,6 +101,8 @@ class _SellBookScreenState extends State<SellBookScreen> {
         Padding(
           padding: insets,
           child: IntNumberInputField(
+            sideLabel: "Book ID:",
+            sideLabelTextStyle: getContentTextStyle(),
             minValue: _bookId,
             maxValue: AllBooks.getLastBookId(),
             value: AllBooks.getFirstBookId(),
@@ -199,39 +201,25 @@ class _SellBookScreenState extends State<SellBookScreen> {
               style: getHeadTextStyle(),
             ),
           ),
-          Container(
-            child: Row(
-              children: [
-                Padding(
-                  padding: insets,
-                  child: Text(
-                    "Number of books:",
-                    style: textStyle,
-                  ),
-                ),
-                Padding(
-                  padding: insets,
-                  child: IntNumberInputField(
-                    minValue: 0,
-                    // maxValue: (_curBook != null) ? _curBook!.count : 0,
-                    maxValue: _curBook.count,
-                    value: this._sellingCount,
-                    onValueChanged: (int newCount) {
-                      // int price = (_curBook != null) ? _curBook!.price : 0;
-                      int price = _curBook.price;
+          Padding(
+            padding: insets,
+            child: IntNumberInputField(
+              sideLabel: "Number of books:",
+              sideLabelTextStyle: textStyle,
+              minValue: 0,
+              maxValue: _curBook.count,
+              value: this._sellingCount,
+              onValueChanged: (int newCount) {
+                int price = _curBook.price;
 
-                      this._sellingCount = newCount;
+                this._sellingCount = newCount;
 
-                      setState(() {
-                        this._sellingPrice = price * _sellingCount;
-                      });
+                setState(() {
+                  this._sellingPrice = price * _sellingCount;
+                });
 
-                    },
-                  )
-                ),
-                
-              ],
-            ),
+              },
+            )
           ),
 
           Padding(

@@ -5,6 +5,9 @@ class IntNumberInputField extends StatefulWidget {
   int minValue, maxValue, value, step;
   double width;
   bool editEnabled;
+  String sideLabel;
+  TextStyle sideLabelTextStyle;
+  double spaceAfterLabel;
   final ValueChanged<int>? onValueChanged;
   final _IntNumberInputFieldState _myState = _IntNumberInputFieldState();
 
@@ -17,6 +20,9 @@ class IntNumberInputField extends StatefulWidget {
     this.onValueChanged,
     this.width = 150,
     this.editEnabled = true,
+    this.sideLabel = "",
+    this.sideLabelTextStyle = const TextStyle(),
+    this.spaceAfterLabel = 15
   }) : super(key: key);
 
   int getValue() {
@@ -83,83 +89,97 @@ class _IntNumberInputFieldState extends State<IntNumberInputField> {
   }
 
 
-
   @override
   Widget build(BuildContext context) {
     EdgeInsets horInset = EdgeInsets.symmetric(horizontal: 0, vertical: 0);
 
-    return SizedBox(
-      width: widget.width,
-      height: 45,
-      child: Container(
-        decoration: BoxDecoration(
-          // border: Border.all()
-          border: Border(
-            bottom: BorderSide()
-          )
-        ),
-        padding: horInset,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              // fit: FlexFit.tight,
-              child: Container(
-                padding: horInset,
-                // child: Center(
-                  child: TextField(
-                    enabled: widget.editEnabled,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.fromLTRB(5, 0, 5, 10),
-                      border: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          width: 0,
-                          style: BorderStyle.none,
-                        )
-                      )
-                    ),
-                    // textAlignVertical: TextAlignVertical.center,
-                    // textAlign: TextAlign.start,
-                    controller: _myController,
-                    onChanged: _tfValueChanged,
-                    onSubmitted: _tfValueChanged,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly
-                    ],
-                  ),
-                // ) 
-              ),
+    return Container(
+      child: Row(
+        children: [
+          Container(
+            padding: EdgeInsets.only(right: widget.spaceAfterLabel),
+            child: Text(
+              widget.sideLabel,
+              style: widget.sideLabelTextStyle,
             ),
+          ),
 
-            Container(
+          SizedBox(
+            width: widget.width,
+            height: 45,
+            child: Container(
+              decoration: BoxDecoration(
+                // border: Border.all()
+                border: Border(
+                  bottom: BorderSide()
+                )
+              ),
               padding: horInset,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Expanded(
-                    child: InkWell(
-                      onTap: this._incValue,
-                      onLongPress: this._incValue,
-                      child: Icon(Icons.arrow_drop_up_sharp),
+                    // fit: FlexFit.tight,
+                    child: Container(
+                      padding: horInset,
+                      // child: Center(
+                        child: TextField(
+                          enabled: widget.editEnabled,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.fromLTRB(5, 0, 5, 10),
+                            border: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                width: 0,
+                                style: BorderStyle.none,
+                              )
+                            )
+                          ),
+                          // textAlignVertical: TextAlignVertical.center,
+                          // textAlign: TextAlign.start,
+                          controller: _myController,
+                          onChanged: _tfValueChanged,
+                          onSubmitted: _tfValueChanged,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                        ),
+                      // ) 
                     ),
                   ),
-                  Expanded(
-                    child: InkWell(
-                      onTap: this._decValue,
-                      onLongPress: this._decValue,
-                      child: Icon(Icons.arrow_drop_down_sharp),
+
+                  Container(
+                    padding: horInset,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: InkWell(
+                            onTap: this._incValue,
+                            onLongPress: this._incValue,
+                            child: Icon(Icons.arrow_drop_up_sharp),
+                          ),
+                        ),
+                        Expanded(
+                          child: InkWell(
+                            onTap: this._decValue,
+                            onLongPress: this._decValue,
+                            child: Icon(Icons.arrow_drop_down_sharp),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
+                  
                 ],
-              ),
-            ),
-            
-          ],
-        )
-      )
+              )
+            )
+          )
+
+        ],
+      ),
     );
   }
 }
