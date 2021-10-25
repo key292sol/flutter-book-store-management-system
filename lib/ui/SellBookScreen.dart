@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:book_store_management/data/AllBooks.dart';
 import 'package:book_store_management/data/Book.dart';
 import 'package:book_store_management/globals.dart';
@@ -18,11 +16,6 @@ class SellBookScreen extends StatefulWidget {
   }
 }
 
-
-// Select ID 
-// Display data
-// Select count of books
-// Sell
 class _SellBookScreenState extends State<SellBookScreen> {
 
   Book _curBook = Book(-1, "", "", 0, 0);
@@ -31,7 +24,7 @@ class _SellBookScreenState extends State<SellBookScreen> {
   int _sellingCount = 0;
 
   void getBookByID() {
-    Book? book = AllBooks.getBookByNum(_bookId);
+    Book? book = AllBooks.getBookById(_bookId);
 
     if (book == null) {
       ShowDialogs.showToast("No book found with this ID");
@@ -54,12 +47,12 @@ class _SellBookScreenState extends State<SellBookScreen> {
 
     ShowDialogs.showToast("Sold $_sellingCount books");
 
-    setState(() {
+    /* setState(() {
       this._bookId = AllBooks.getFirstBookId();
       this._curBook = Book(-1, "", "", 0, 0);
       this._sellingCount = 0;
       this._sellingPrice = 0;
-    });
+    }); */
 
     navigatePop();
   }
@@ -135,6 +128,8 @@ class _SellBookScreenState extends State<SellBookScreen> {
     EdgeInsets insets = EdgeInsets.symmetric(horizontal: 15, vertical: 10);
     TextStyle textStyle = getContentTextStyle();
 
+    Map curBookMap = (_curBook.id == -1) ? Book.getEmptyMap() : _curBook.getAsMap();
+
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -152,28 +147,28 @@ class _SellBookScreenState extends State<SellBookScreen> {
           Padding(
             padding: insets,
             child: Text(
-              "Book ID: " + ((_curBook.id != -1) ? _curBook.id.toString() : ""),
+              "Book ID: " + curBookMap["id"],
               style: textStyle,
             ),
           ),
           Padding(
             padding: insets,
             child: Text(
-              "Book Name: " + _curBook.name,
+              "Book Name: " + curBookMap["name"],
               style: textStyle,
             ),
           ),
           Padding(
             padding: insets,
             child: Text(
-              "Book Author: " + _curBook.author,
+              "Book Author: " + curBookMap["author"],
               style: textStyle,
             ),
           ),
           Padding(
             padding: insets,
             child: Text(
-              "Book Price: " + _curBook.price.toString(),
+              "Book Price: " + curBookMap["price"],
               style: textStyle,
             ),
           ),
